@@ -1,0 +1,1 @@
+Se armaron todas las familias para los dispositivos además de añadir un pequeño diccionario de términos con 68 items, el cual se usará para consultar desde la app y llenar el array con Strings de sugerencia al momento de ingresar el nombre de algún elemento.
