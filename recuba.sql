@@ -284,15 +284,6 @@ CREATE TABLE `pedido` (
 
 -- --------------------------------------------------------
 
---
--- Table structure for table `precio_kg`
---
-
-CREATE TABLE `precio_kg` (
-  `precio_id` int(11) NOT NULL,
-  `precio` float DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --
@@ -360,13 +351,7 @@ ALTER TABLE `fecha_trab`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`);
-
---
--- Indexes for table `precio_kg`
---
-ALTER TABLE `precio_kg`
-  ADD PRIMARY KEY (`precio_id`);
-
+  
 --
 -- Indexes for table `recojo`
 --

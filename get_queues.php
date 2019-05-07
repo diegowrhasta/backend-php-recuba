@@ -1,6 +1,6 @@
 <?php
 include 'conexion.php';
-$consulta = "select * from queues where fecha= '".$_GET['fecha']."'";
+$consulta = "select * from queues";
 $resultado = mysqli_query($conexion,$consulta);
 if(!$resultado){
     die("Error en la consulta");
