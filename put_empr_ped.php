@@ -1,13 +1,19 @@
 <?php
     include 'conexion.php'; //Inclusión de la clase de conexión de la BD
     //Instanciación de todos los datos que se recibirán por medio de un POST desde la app
-        $consulta="update queues set peso=peso+'" .$_GET['peso']. "' where fecha = '" .$_GET['fecha']. "'";
+        $consulta="insert into empr_ped(empred_id,ped_id,estado,total,emp_id) values(
+        '" .$_GET['empred_id']. "',
+        '" .$_GET['ped_id']. "',
+        '" .$_GET['estado']. "',
+        '" .$_GET['total']. "',
+        '" .$_GET['emp_id']. "'
+    )";
     $result = mysqli_query($conexion,$consulta);
     if($result){
-        $output = 'trueUpdate';
+        $output = 'truePutEmprPed';
     }
     else{
-        $output = 'falseUpdate';
+        $output = 'falsePutEmprPed';
     }
     print($output);
     mysqli_close($conexion); //Cierre del canal de conexión a la BDD

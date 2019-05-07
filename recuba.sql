@@ -70,6 +70,19 @@ CREATE TABLE `detalle` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pedido_dia`
+--
+
+CREATE TABLE `pedido_dia` (
+  `pedido_dia_id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `fechatrab` date,
+  `fecha_hora_ped` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `empresa_usuario`
@@ -96,7 +109,7 @@ INSERT INTO `empresa_usuario`(`nit`, `nombre`, `salt`, `hash`, `dir`, `correo`, 
 CREATE TABLE `empr_ped` (
   `empred_id` int(11) NOT NULL AUTO_INCREMENT primary key,
   `ped_id` int(11) DEFAULT NULL,
-  `estado` tinyint(1) DEFAULT NULL,
+  `estado` varchar(45) DEFAULT NULL,
   `total` double DEFAULT NULL,
   `emp_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -149,15 +162,6 @@ INSERT INTO `familias` (`familia_id`, `nombre`) VALUES
 (30, '(Otros) Pequeños');
 
 -- --------------------------------------------------------
-
---
--- Table structure for table `fecha_ped`
---
-
-CREATE TABLE `fecha_ped` (
-  `ped_id` int(11) NOT NULL,
-  `fecha` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -351,7 +355,7 @@ ALTER TABLE `fecha_trab`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`);
-  
+
 --
 -- Indexes for table `recojo`
 --
