@@ -21,9 +21,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `recuba`
 --
-
+CREATE TABLE `queues`(
+  `q_id` int not null AUTO_INCREMENT primary key,
+  `fecha` date not null,
+  `peso` double not null
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 -- --------------------------------------------------------
-
+INSERT INTO `queues` (`q_id`, `fecha`, `peso`) VALUES
+(null, '2019-05-02', 0.00),
+(null, '2019-05-07', 0.00),
+(null, '2019-05-09', 0.00),
+(null, '2019-05-14', 0.00),
+(null, '2019-05-16', 0.00),
+(null, '2019-05-21', 0.00),
+(null, '2019-05-23', 0.00),
+(null, '2019-05-28', 0.00);
 --
 -- Table structure for table `chofer`
 --
@@ -50,7 +62,7 @@ INSERT INTO `chofer` (`ci`, `nombre`, `fecha_nac`) VALUES
 --
 
 CREATE TABLE `detalle` (
-  `detalle_id` int(11) NOT NULL,
+  `detalle_id` int(11) NOT NULL AUTO_INCREMENT primary key,
   `empred_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
@@ -75,13 +87,14 @@ CREATE TABLE `empresa_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
-
+-- Set UserPrueba
+INSERT INTO `empresa_usuario`(`nit`, `nombre`, `salt`, `hash`, `dir`, `correo`, `telefono`, `rubro`) VALUES (4916388,'Diego','Y/M5WlPUt8Tu7wsPwpUvb/NA6oPO0rDraFG0aeFO9qM=','39a69004f5857085f0294167bf378274166abdcb53a0819552d41cfe011909c0','Amor de Dios Calle 1 Número 42','diegowrhasta@gmail.com',75227363,'Gastronomía');
 --
 -- Table structure for table `empr_ped`
 --
 
 CREATE TABLE `empr_ped` (
-  `empred_id` int(11) NOT NULL,
+  `empred_id` int(11) NOT NULL AUTO_INCREMENT primary key,
   `ped_id` int(11) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `total` double DEFAULT NULL,
@@ -161,6 +174,16 @@ CREATE TABLE `fecha_trab` (
 
 -- --------------------------------------------------------
 
+-- Set Mes Trabajo
+INSERT INTO `fecha_trab`(`fechatrab_id`, `fecha`, `chofer_id`, `zona`) VALUES
+(1, '2019-05-02', 1,'Zona Periférica'),
+(2, '2019-05-07', 2,'Zona Max Paredes'),
+(3, '2019-05-09', 3,'Zona San Antonio'),
+(4, '2019-05-14', 1,'Zona Cotahuma'),
+(5, '2019-05-16', 2,'Zona Sur'),
+(6, '2019-05-21', 3,'Zona Centro'),
+(7, '2019-05-23', 1,'Zona Cotahuma, Sur, Centro'),
+(8, '2019-05-28', 1,'Zona Max Paredes, Periférica, San Antonio');
 --
 -- Table structure for table `items`
 --
@@ -253,7 +276,7 @@ INSERT INTO `items` (`item_id`, `nombre`, `familia`, `peso`) VALUES
 --
 
 CREATE TABLE `pedido` (
-  `id_ped` int(11) NOT NULL,
+  `id_ped` int(11) NOT NULL AUTO_INCREMENT primary key,
   `fecha_rec` datetime DEFAULT NULL,
   `cord_x` double DEFAULT NULL,
   `cord_y` double DEFAULT NULL
@@ -297,7 +320,6 @@ ALTER TABLE `chofer`
 -- Indexes for table `detalle`
 --
 ALTER TABLE `detalle`
-  ADD PRIMARY KEY (`detalle_id`),
   ADD KEY `empred_id` (`empred_id`),
   ADD KEY `item_id` (`item_id`);
 
@@ -311,7 +333,6 @@ ALTER TABLE `empresa_usuario`
 -- Indexes for table `empr_ped`
 --
 ALTER TABLE `empr_ped`
-  ADD PRIMARY KEY (`empred_id`),
   ADD KEY `ped_id` (`ped_id`),
   ADD KEY `emp_id` (`emp_id`);
 
@@ -339,12 +360,6 @@ ALTER TABLE `fecha_trab`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`);
-
---
--- Indexes for table `pedido`
---
-ALTER TABLE `pedido`
-  ADD PRIMARY KEY (`id_ped`);
 
 --
 -- Indexes for table `precio_kg`
