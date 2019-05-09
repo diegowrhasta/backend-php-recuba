@@ -9,12 +9,17 @@ while($row = mysqli_fetch_assoc($resultado)){
     $output[] = $row;
 }
 try {
-    print(json_encode($output));
-    mysqli_free_result($resultado);
-    mysqli_close($conexion);
+    if(isset($output)){
+        print(json_encode($output));
+        mysqli_free_result($resultado);
+        mysqli_close($conexion);
+    }
+    else{
+        print('falseGetPedidoDia');
+        mysqli_free_result($resultado);
+        mysqli_close($conexion);
+    }
 } catch (\Throwable $th) {
-    print('falseGetPedido');
-    mysqli_free_result($resultado);
-mysqli_close($conexion);
+    
 }
 ?>

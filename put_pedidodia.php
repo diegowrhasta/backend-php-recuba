@@ -8,10 +8,10 @@
     )";
     $result = mysqli_query($conexion,$consulta);
     if($result){
-        $output = 'truePut';
+        $output = 'PutPedidoDiaSuccess';
     }
     else{
-        $output = 'falsePut';
+        $output = 'PutPedidoDiaFalse';
     }
     print($output);
     mysqli_close($conexion); //Cierre del canal de conexión a la BDD
