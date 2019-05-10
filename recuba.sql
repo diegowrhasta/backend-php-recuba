@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 01, 2019 at 12:12 AM
+-- Generation Time: May 10, 2019 at 02:37 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -21,21 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Database: `recuba`
 --
-CREATE TABLE `queues`(
-  `q_id` int not null AUTO_INCREMENT primary key,
-  `fecha` date not null,
-  `peso` double not null
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- --------------------------------------------------------
-INSERT INTO `queues` (`q_id`, `fecha`, `peso`) VALUES
-(null, '2019-05-02', 0.00),
-(null, '2019-05-07', 0.00),
-(null, '2019-05-09', 0.00),
-(null, '2019-05-14', 0.00),
-(null, '2019-05-16', 0.00),
-(null, '2019-05-21', 0.00),
-(null, '2019-05-23', 0.00),
-(null, '2019-05-28', 0.00);
+
 --
 -- Table structure for table `chofer`
 --
@@ -62,25 +50,22 @@ INSERT INTO `chofer` (`ci`, `nombre`, `fecha_nac`) VALUES
 --
 
 CREATE TABLE `detalle` (
-  `detalle_id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `detalle_id` int(11) NOT NULL,
   `empred_id` int(11) DEFAULT NULL,
   `item_id` int(11) DEFAULT NULL,
   `estado` tinyint(1) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
--- --------------------------------------------------------
-
 --
--- Table structure for table `pedido_dia`
+-- Dumping data for table `detalle`
 --
 
-CREATE TABLE `pedido_dia` (
-  `pedido_dia_id` int(11) NOT NULL AUTO_INCREMENT primary key,
-  `fechatrab` date,
-  `fecha_hora_ped` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+INSERT INTO `detalle` (`detalle_id`, `empred_id`, `item_id`, `estado`, `cantidad`) VALUES
+(13, 18, 42, 0, 1),
+(14, 19, 42, 0, 1),
+(15, 19, 34, 0, 8),
+(16, 20, 34, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -99,20 +84,35 @@ CREATE TABLE `empresa_usuario` (
   `rubro` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `empresa_usuario`
+--
+
+INSERT INTO `empresa_usuario` (`nit`, `nombre`, `salt`, `hash`, `dir`, `correo`, `telefono`, `rubro`) VALUES
+(4916388, 'Diego', 'tHkguH8P7LXa4eJrqA1dvSVVHYRu9KJ/6PhJqKj9ACY=', '6d109795c5e7dd114d76c19b16ac2a59e3a9ace0d6b9bb9d26629662287fa5f7', 'Amor de Dios Calle 1 #42', 'diegowrhasta@gmail.com', 75227363, 'Gastronomía');
+
 -- --------------------------------------------------------
--- Set UserPrueba
-INSERT INTO `empresa_usuario`(`nit`, `nombre`, `salt`, `hash`, `dir`, `correo`, `telefono`, `rubro`) VALUES (4916388,'Diego','Y/M5WlPUt8Tu7wsPwpUvb/NA6oPO0rDraFG0aeFO9qM=','39a69004f5857085f0294167bf378274166abdcb53a0819552d41cfe011909c0','Amor de Dios Calle 1 Número 42','diegowrhasta@gmail.com',75227363,'Gastronomía');
+
 --
 -- Table structure for table `empr_ped`
 --
 
 CREATE TABLE `empr_ped` (
-  `empred_id` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `empred_id` int(11) NOT NULL,
   `ped_id` int(11) DEFAULT NULL,
   `estado` varchar(45) DEFAULT NULL,
   `total` double DEFAULT NULL,
   `emp_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `empr_ped`
+--
+
+INSERT INTO `empr_ped` (`empred_id`, `ped_id`, `estado`, `total`, `emp_id`) VALUES
+(18, 29, 'Pendiente', 30, 4916388),
+(19, 30, 'Pendiente', 31, 4916388),
+(20, 31, 'Pendiente', 1, 4916388);
 
 -- --------------------------------------------------------
 
@@ -163,8 +163,6 @@ INSERT INTO `familias` (`familia_id`, `nombre`) VALUES
 
 -- --------------------------------------------------------
 
--- --------------------------------------------------------
-
 --
 -- Table structure for table `fecha_trab`
 --
@@ -176,18 +174,22 @@ CREATE TABLE `fecha_trab` (
   `zona` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `fecha_trab`
+--
+
+INSERT INTO `fecha_trab` (`fechatrab_id`, `fecha`, `chofer_id`, `zona`) VALUES
+(1, '2019-05-02', 1, 'Zona Periférica'),
+(2, '2019-05-07', 2, 'Zona Max Paredes'),
+(3, '2019-05-09', 3, 'Zona San Antonio'),
+(4, '2019-05-14', 1, 'Zona Cotahuma'),
+(5, '2019-05-16', 2, 'Zona Sur'),
+(6, '2019-05-21', 3, 'Zona Centro'),
+(7, '2019-05-23', 1, 'Zona Cotahuma, Sur, Centro'),
+(8, '2019-05-28', 1, 'Zona Max Paredes, Periférica, San Antonio');
+
 -- --------------------------------------------------------
 
--- Set Mes Trabajo
-INSERT INTO `fecha_trab`(`fechatrab_id`, `fecha`, `chofer_id`, `zona`) VALUES
-(1, '2019-05-02', 1,'Zona Periférica'),
-(2, '2019-05-07', 2,'Zona Max Paredes'),
-(3, '2019-05-09', 3,'Zona San Antonio'),
-(4, '2019-05-14', 1,'Zona Cotahuma'),
-(5, '2019-05-16', 2,'Zona Sur'),
-(6, '2019-05-21', 3,'Zona Centro'),
-(7, '2019-05-23', 1,'Zona Cotahuma, Sur, Centro'),
-(8, '2019-05-28', 1,'Zona Max Paredes, Periférica, San Antonio');
 --
 -- Table structure for table `items`
 --
@@ -280,13 +282,20 @@ INSERT INTO `items` (`item_id`, `nombre`, `familia`, `peso`) VALUES
 --
 
 CREATE TABLE `pedido` (
-  `id_ped` int(11) NOT NULL AUTO_INCREMENT primary key,
+  `id_ped` int(11) NOT NULL,
   `fecha_rec` datetime DEFAULT NULL,
   `cord_x` double DEFAULT NULL,
   `cord_y` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- --------------------------------------------------------
+--
+-- Dumping data for table `pedido`
+--
+
+INSERT INTO `pedido` (`id_ped`, `fecha_rec`, `cord_x`, `cord_y`) VALUES
+(29, '2019-05-02 10:00:00', -16.5513425, -68.0926003),
+(30, '2019-05-02 10:05:00', -16.5512779, -68.0925195),
+(31, '2019-05-02 10:10:00', -16.5512622, -68.0925762);
 
 -- --------------------------------------------------------
 
@@ -315,6 +324,7 @@ ALTER TABLE `chofer`
 -- Indexes for table `detalle`
 --
 ALTER TABLE `detalle`
+  ADD PRIMARY KEY (`detalle_id`),
   ADD KEY `empred_id` (`empred_id`),
   ADD KEY `item_id` (`item_id`);
 
@@ -328,6 +338,7 @@ ALTER TABLE `empresa_usuario`
 -- Indexes for table `empr_ped`
 --
 ALTER TABLE `empr_ped`
+  ADD PRIMARY KEY (`empred_id`),
   ADD KEY `ped_id` (`ped_id`),
   ADD KEY `emp_id` (`emp_id`);
 
@@ -336,12 +347,6 @@ ALTER TABLE `empr_ped`
 --
 ALTER TABLE `familias`
   ADD PRIMARY KEY (`familia_id`);
-
---
--- Indexes for table `fecha_ped`
---
-ALTER TABLE `fecha_ped`
-  ADD PRIMARY KEY (`ped_id`);
 
 --
 -- Indexes for table `fecha_trab`
@@ -357,12 +362,40 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`item_id`);
 
 --
+-- Indexes for table `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`id_ped`);
+
+--
 -- Indexes for table `recojo`
 --
 ALTER TABLE `recojo`
   ADD PRIMARY KEY (`r_id`),
   ADD KEY `empred_id` (`empred_id`),
   ADD KEY `chofer_id` (`chofer_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `detalle`
+--
+ALTER TABLE `detalle`
+  MODIFY `detalle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT for table `empr_ped`
+--
+ALTER TABLE `empr_ped`
+  MODIFY `empred_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `id_ped` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
